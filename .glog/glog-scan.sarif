@@ -12,7 +12,7 @@
           "informationUri": "https://www.glog.ai",
           "rules": [
             {
-              "id": "glog-e8f45bd2-7c23-4fa2-96b7-29044cf8a06b",
+              "id": "glog-9cb01b49-e66b-411f-a66c-19fec0d1e775",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\nThe vulnerability in question is related to the `memcpy` function in C++. This function is used to copy a block of memory from one location to another. The vulnerability arises when the size of the destination buffer is less than the size of the source buffer. This can lead to a buffer overflow, which can cause the program to crash or, in some cases, allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to always ensure that the destination buffer is large enough to hold the data being copied from the source buffer. This can be done by checking the size of the destination buffer before calling `memcpy`.\n\n## Source Code Fix Recommendation\n\nHere is a recommended fix for the provided code:\n\n```cpp\nif (sizeof(resized_surf_info) >= sizeof(OutputSurfaceInfo)) {\n    memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo));\n} else {\n    // Handle the error condition\n}\n```\n\nIn this code, we first check if the size of `resized_surf_info` is greater than or equal to the size of `OutputSurfaceInfo`. If it is, we proceed with the `memcpy`. If it is not, we handle the error condition appropriately.\n\n## Library Dependencies\n\nThe `memcpy` function is part of the C Standard Library, so the only dependency required by the code example is:\n\n- `#include <cstring>`\n\n## OWASP and CWE Links\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n\nPlease note that these links are subject to change and may not always be accessible."
@@ -24,19 +24,7 @@
               }
             },
             {
-              "id": "glog-5e3d0483-c079-4ca0-a9e2-9e3f0e71a805",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\nThe vulnerability in question is related to the `memcpy` function in C++. This function is used to copy a block of memory from one location to another. The vulnerability arises when the size of the destination buffer is less than the size of the source buffer. This can lead to a buffer overflow, which can cause the program to crash or, in some cases, allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to always ensure that the destination buffer is large enough to hold the data being copied from the source buffer. This can be done by checking the size of the destination buffer before calling `memcpy`.\n\n## Source Code Fix Recommendation\n\nHere is a recommended fix for the provided code:\n\n```cpp\nif (sizeof(resized_surf_info) >= sizeof(OutputSurfaceInfo)) {\n    memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo));\n} else {\n    // Handle the error condition\n}\n```\n\nIn this code, we first check if the size of `resized_surf_info` is greater than or equal to the size of `OutputSurfaceInfo`. If it is, we proceed with the `memcpy`. If it is not, we handle the error condition appropriately.\n\n## Library Dependencies\n\nThe `memcpy` function is part of the C Standard Library, so the only dependency required by the code example is:\n\n- `#include <cstring>`\n\n## OWASP and CWE Links\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n\nPlease note that these links are subject to change and may not always be accessible."
-              },
-              "properties": {
-                "tags": [
-                  "DS121708"
-                ]
-              }
-            },
-            {
-              "id": "glog-6b08a4ea-f35c-4035-9b11-a6f238f80eec",
+              "id": "glog-cd7b97d8-61e6-4056-adfc-63fc0cad0d54",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\nThe vulnerability in question is related to the `malloc` function in C++. `malloc` is a function that dynamically allocates memory at runtime. The vulnerability arises when the size of the memory to be allocated is not properly validated or controlled, leading to potential buffer overflows, memory corruption, or other related issues. This can lead to serious security issues such as arbitrary code execution, denial of service, or information disclosure.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to always validate and control the size of the memory to be allocated. Avoid using `malloc` with user-supplied or untrusted size values without proper validation. Also, consider using functions that limit the amount of memory allocated, such as `calloc`, which initializes the allocated memory to zero.\n\n## Source Code Fix Recommendation\n\nHere is a simple fix for the code:\n\n```cpp\n// Check for potential overflow in size calculation\nif (sizeof(OutputSurfaceInfo) > SIZE_MAX / num_elements) {\n    // Handle error\n} else {\n    OutputSurfaceInfo* ptr = (OutputSurfaceInfo*) malloc(sizeof(OutputSurfaceInfo) * num_elements);\n    if (ptr == NULL) {\n        // Handle error\n    } else {\n        // Use ptr\n        free(ptr);\n    }\n}\n```\n\nIn this code, we first check if the size calculation would overflow. If it does, we handle the error. If it doesn't, we proceed with the `malloc`. After using the allocated memory, we free it with `free`.\n\n## Library Dependencies\n\nThe code example does not require any specific library dependencies other than the standard C++ libraries.\n\n## References\n\n- [CWE-131: Incorrect Calculation of Buffer Size](https://cwe.mitre.org/data/definitions/131.html)\n\nPlease note that the links provided are accessible to anonymous users at the time of writing this report."
@@ -48,7 +36,19 @@
               }
             },
             {
-              "id": "glog-cf374495-405c-485b-92e4-794e9d385773",
+              "id": "glog-da29acad-6eae-428c-84f7-8fcc54d09f37",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe vulnerability in question is related to the `memcpy` function in C++. This function is used to copy a block of memory from one location to another. The vulnerability arises when the size of the destination buffer is less than the size of the source buffer. This can lead to a buffer overflow, which can cause the program to crash or, in some cases, allow an attacker to execute arbitrary code.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to always ensure that the destination buffer is large enough to hold the data being copied from the source buffer. This can be done by checking the size of the destination buffer before calling `memcpy`.\n\n## Source Code Fix Recommendation\n\nHere is a recommended fix for the provided code:\n\n```cpp\nif (sizeof(resized_surf_info) >= sizeof(OutputSurfaceInfo)) {\n    memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo));\n} else {\n    // Handle the error condition\n}\n```\n\nIn this code, we first check if the size of `resized_surf_info` is greater than or equal to the size of `OutputSurfaceInfo`. If it is, we proceed with the `memcpy`. If it is not, we handle the error condition appropriately.\n\n## Library Dependencies\n\nThe `memcpy` function is part of the C Standard Library, so the only dependency required by the code example is:\n\n- `#include <cstring>`\n\n## OWASP and CWE Links\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n\nPlease note that these links are subject to change and may not always be accessible."
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-33a45867-4edc-4f5b-84d8-dbfaa3da1e62",
               "help": {
                 "text": "",
                 "markdown": "## Description\n\nThe `memcpy` function in C++ is used to copy a block of memory from one location to another. This function does not check for the size of the destination buffer, which can lead to buffer overflow if the source buffer is larger than the destination buffer. This is a common vulnerability in C++ programming, and it can lead to serious security issues such as code execution, denial of service, or information disclosure.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, you should always ensure that the destination buffer is large enough to hold the data being copied from the source buffer. This can be done by checking the size of the source buffer and the size of the destination buffer before calling the `memcpy` function. If the source buffer is larger than the destination buffer, you should not proceed with the copy operation.\n\n## Source Code Fix Recommendation\n\nHere is a simple fix for the vulnerability:\n\n```cpp\nif (n_buf <= sizeof(p_buf)) {\n    memcpy(p_buf, buf_ptr_, n_buf);\n} else {\n    // Handle error\n}\n```\n\nIn this code, we first check if the size of the source buffer (`n_buf`) is less than or equal to the size of the destination buffer (`sizeof(p_buf)`). If it is, we proceed with the `memcpy` operation. If it is not, we handle the error in an appropriate manner.\n\n## Library Dependencies\n\nThe `memcpy` function is part of the C Standard Library, so you need to include the `cstring` header file in your code:\n\n```cpp\n#include <cstring>\n```\n\n## OWASP Resources\n\n- [Buffer Overflow](https://owasp.org/www-community/vulnerabilities/Buffer_Overflow)\n\n## Common Weakness Enumeration (CWE)\n\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)"
@@ -71,7 +71,72 @@
       "language": "en-US",
       "results": [
         {
-          "ruleId": "glog-e8f45bd2-7c23-4fa2-96b7-29044cf8a06b",
+          "ruleId": "glog-2fd11eec-28e6-4a27-b25d-d82f2a1037a2",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (malloc)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
+                },
+                "region": {
+                  "startLine": 234,
+                  "startColumn": 73,
+                  "endLine": 234,
+                  "endColumn": 105,
+                  "charOffset": 12149,
+                  "charLength": 32,
+                  "snippet": {
+                    "text": "malloc(sizeof(OutputSurfaceInfo)",
+                    "rendered": {
+                      "text": "malloc(sizeof(OutputSurfaceInfo)",
+                      "markdown": "`malloc(sizeof(OutputSurfaceInfo)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12149,
+                        "charLength": 32
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-9cb01b49-e66b-411f-a66c-19fec0d1e775",
           "kind": "fail",
           "level": "note",
           "message": {
@@ -136,72 +201,7 @@
           }
         },
         {
-          "ruleId": "glog-5e3d0483-c079-4ca0-a9e2-9e3f0e71a805",
-          "kind": "fail",
-          "level": "note",
-          "message": {
-            "text": "Detected Vulnerability in C Function (memcpy)"
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
-                },
-                "region": {
-                  "startLine": 240,
-                  "startColumn": 8,
-                  "endLine": 240,
-                  "endColumn": 70,
-                  "charOffset": 12391,
-                  "charLength": 62,
-                  "snippet": {
-                    "text": "memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)",
-                    "rendered": {
-                      "text": "memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)",
-                      "markdown": "`memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "fixes": [
-            {
-              "description": {
-                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
-              },
-              "artifactChanges": [
-                {
-                  "artifactLocation": {
-                    "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
-                  },
-                  "replacements": [
-                    {
-                      "deletedRegion": {
-                        "charOffset": 12391,
-                        "charLength": 62
-                      },
-                      "insertedContent": {
-                        "text": "memcpy_s(resized_surf_info, <size of resized_surf_info>,  surf_info,  sizeof(OutputSurfaceInfo)"
-                      }
-                    }
-                  ]
-                }
-              ]
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "BestPractice",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.ProblematicFunction"
-            ]
-          }
-        },
-        {
-          "ruleId": "glog-6b08a4ea-f35c-4035-9b11-a6f238f80eec",
+          "ruleId": "glog-cd7b97d8-61e6-4056-adfc-63fc0cad0d54",
           "kind": "fail",
           "level": "note",
           "message": {
@@ -266,7 +266,72 @@
           }
         },
         {
-          "ruleId": "glog-cf374495-405c-485b-92e4-794e9d385773",
+          "ruleId": "glog-da29acad-6eae-428c-84f7-8fcc54d09f37",
+          "kind": "fail",
+          "level": "note",
+          "message": {
+            "text": "Detected Vulnerability in C Function (memcpy)"
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
+                },
+                "region": {
+                  "startLine": 240,
+                  "startColumn": 8,
+                  "endLine": 240,
+                  "endColumn": 70,
+                  "charOffset": 12391,
+                  "charLength": 62,
+                  "snippet": {
+                    "text": "memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)",
+                    "rendered": {
+                      "text": "memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)",
+                      "markdown": "`memcpy(resized_surf_info, surf_info, sizeof(OutputSurfaceInfo)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "src/rocdecode/roc_pyvideodecodecpu.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 12391,
+                        "charLength": 62
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(resized_surf_info, <size of resized_surf_info>,  surf_info,  sizeof(OutputSurfaceInfo)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-33a45867-4edc-4f5b-84d8-dbfaa3da1e62",
           "kind": "fail",
           "level": "note",
           "message": {
